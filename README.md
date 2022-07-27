@@ -36,6 +36,9 @@ library(remotes)
 remotes::install_github('coolbutuseless/eventloop')
 remotes::install_github('coolbutuseless/nara')
 
+# Install packages
+install.packages('audio')
+
 # Grab a copy of the code (this is not distributed as a package)
 system("git clone https://github.com/coolbutuseless/anotherworld")
 setwd('anotherworld')

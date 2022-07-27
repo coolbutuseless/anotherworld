@@ -9,7 +9,7 @@ detect_os <- function(){
   sysname <- Sys.info()[['sysname']]
   if (sysname == 'Darwin') {
     'mac'
-  } else if (.Platform == 'windows') {
+  } else if (tolower(.Platform$OS.type) == 'windows') {
     'windows'
   } else {
     'unix'

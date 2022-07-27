@@ -10,12 +10,21 @@ The game plays in realtime using 2 key packages:
   interaction - allowing for keyboard feedback while rendering the game with
   sound.
 
-### Warning: Alpha Quality Code!
+### Warning: Game not yet finished!
 
-I have not finished the porting of this game to R and the code is still being worked on.  
+I have not finished porting this game to R.  The code is still being worked on.  
 
-Please forgive me for any issues you find!  Or file an issue if you think 
-something is definitely wrong!
+Please forgive me for any glitches you find!  
+
+Or file an issue on github if you think something is definitely wrong!
+
+
+## Gameplay in R
+
+A live capture of playing the game in R
+
+
+  <img src="image/anotherworld.gif" width="70%" />
 
 
 ## Installation
@@ -59,14 +68,14 @@ setwd('anotherworld')
 
 
 ```
-PART <- 16001  # <------- select the part of the game to play
+PART <- 16002  # <------- select the part of the game to play
 source('game.R')
 ```
 
 
 ## GamePlay 
 
-#### Gameplay on the Amiga
+#### Game walkthrough on the Amiga
 
 This looks pretty similar to the R version as it's running on the same
 in-game virtual machine. 
@@ -107,14 +116,17 @@ where you must survive and, hopefully, escape!
 
 ## ToDo
 
-* Audio working on Unix. Help needed.
-* Controls might be a bit "sticky".  This feels like a bug in my code.
+* Audio not yet working on Unix. Help needed. What's a good command line 
+  audio playback utility that everyone can install easily?
+* Controls still feel a bit "sticky".  This feels like a bug in my code.
 * Incorporate display of pre-rendered bitmaps which are part of the in-game data
     * You'll notice some scenes are a little blank because these bitmaps 
       aren't drawn yet.
 * Still some rendering anomalies
 * See if I can get sound playback with `{audio}` package working correctly
 * While there are sound effects in the R version, there is currently no music.
+
+
 ## Requirements
 
 **macOS**
@@ -133,7 +145,7 @@ The WindowsOS version of R does not currently have support for the `onIdle` call
 therefore does not support  event-driven interactive graphics as implemented 
 in the `{eventloop}` package.
 
-**If you are a windows developor capable of adding support for an `onIdle` callback
+**If you are a windows developer capable of adding support for an `onIdle` callback
 to R itself, please get in touch!**
 
 ## Limitation - Flickering Cursor

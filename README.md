@@ -54,6 +54,20 @@ setwd('anotherworld')
 ```
 
 
+## Controls
+
+After your experiment on earth goes awry, you are transported to *another world*
+where you must survive and, hopefully, escape!
+
+* Run game with `source('game.R')`
+    * Set `PART` variable first to the section you want to play.
+* Control game with arrow keys and space bar (for action)
+* Press 'p' to pause
+* Press 'ESC' to quit
+* When you finish a section the game does not automatically advance to the next
+  section. 
+  
+
 
 ## Play the game
 
@@ -97,20 +111,6 @@ Click the image below to watch it on youtube.
   <div style="float: left; width: 45%;"><img src="image/04.png" /></div>
 </div>
 
-
-## Controls
-
-After your experiment on earth goes awry, you are transported to *another world*
-where you must survive and, hopefully, escape!
-
-* Run game with `source('game.R')`
-    * Set `PART` variable first to the section you want to play.
-* Control game with arrow keys and space bar (for action)
-* Press 'p' to pause
-* Press 'ESC' to quit
-* When you finish a section the game does not automatically advance to the next
-  section. 
-  
   
   
 

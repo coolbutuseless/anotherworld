@@ -950,6 +950,12 @@ update_input <- function(event) {
   mask = 0;
 
   if (is.null(event)) {
+    game$vars[ VAR_HERO_POS_LEFT_RIGHT ] = 0;
+    game$vars[ VAR_HERO_POS_JUMP_DOWN ] = 0;
+    game$vars[ VAR_HERO_POS_UP_DOWN ] = 0;
+    game$vars[ VAR_HERO_POS_MASK ] = 0;
+    game$vars[ VAR_HERO_ACTION ] = 0;
+    game$vars[ VAR_HERO_ACTION_POS_MASK ] = 0;
     return()
   }
 

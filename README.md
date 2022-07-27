@@ -17,44 +17,6 @@ I have not finished the porting of this game to R and the code is still being wo
 Please forgive me for any issues you find!  Or file an issue if you think 
 something is definitely wrong!
 
-## GamePlay 
-
-#### Gameplay on the Amiga
-
-This looks pretty similar to the R version as it's running on the same
-in-game virtual machine. 
-
-Click the image below to watch it on youtube.
-
-[![AnotherWorld gameplay](https://img.youtube.com/vi/utrxk5_PeEY/0.jpg)](https://www.youtube.com/watch?v=utrxk5_PeEY)
-
-
-#### Screenshots of the R version
-
-<div>
-  <div style="float: left; width: 45%;"><img src="image/01.png" /></div>
-  <div style="float: left; width: 45%;"><img src="image/02.png" /></div>
-</div>
-
-<div>
-  <div style="float: left; width: 45%;"><img src="image/03.png" /></div>
-  <div style="float: left; width: 45%;"><img src="image/04.png" /></div>
-</div>
-
-
-## Controls
-
-After your experiment on earth goes awry, you are transported to *another world*
-where you must survive and, hopefully, escape!
-
-* Run game with `source('game.R')`
-    * Set `PART` variable first to the section you want to play.
-* Control game with arrow keys and space bar (for action)
-* Press 'p' to pause
-* Press 'ESC' to quit
-* When you finish a section the game does not automatically advance to the next
-  section.  You will have to edit the code at line `1080` and restart the 
-  game to play the next section.
 
 ## Installation
 
@@ -94,12 +56,51 @@ setwd('anotherworld')
 
 
 ```
-PART <- 16002  # <------- select the part of the game to play
+PART <- 16001  # <------- select the part of the game to play
 source('game.R')
-
-# To play different sections. Edit line 1080
-# Change `load_part(16001)` to a number between 16001 and 16008.
 ```
+
+
+## GamePlay 
+
+#### Gameplay on the Amiga
+
+This looks pretty similar to the R version as it's running on the same
+in-game virtual machine. 
+
+Click the image below to watch it on youtube.
+
+[![AnotherWorld gameplay](https://img.youtube.com/vi/utrxk5_PeEY/0.jpg)](https://www.youtube.com/watch?v=utrxk5_PeEY)
+
+
+#### Screenshots of the R version
+
+<div>
+  <div style="float: left; width: 45%;"><img src="image/01.png" /></div>
+  <div style="float: left; width: 45%;"><img src="image/02.png" /></div>
+</div>
+
+<div>
+  <div style="float: left; width: 45%;"><img src="image/03.png" /></div>
+  <div style="float: left; width: 45%;"><img src="image/04.png" /></div>
+</div>
+
+
+## Controls
+
+After your experiment on earth goes awry, you are transported to *another world*
+where you must survive and, hopefully, escape!
+
+* Run game with `source('game.R')`
+    * Set `PART` variable first to the section you want to play.
+* Control game with arrow keys and space bar (for action)
+* Press 'p' to pause
+* Press 'ESC' to quit
+* When you finish a section the game does not automatically advance to the next
+  section. 
+  
+  
+  
 
 ## ToDo
 

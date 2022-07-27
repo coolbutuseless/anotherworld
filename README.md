@@ -68,7 +68,7 @@ setwd('anotherworld')
 
 
 ```
-PART <- 16002  # <------- select the part of the game to play
+PART <- 16001  # <------- select the part of the game to play
 source('game.R')
 ```
 

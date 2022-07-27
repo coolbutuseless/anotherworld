@@ -1,0 +1,3 @@
+echo off
+type readme
+

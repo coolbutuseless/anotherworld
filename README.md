@@ -10,13 +10,11 @@ The game plays in realtime using 2 key packages:
   interaction - allowing for keyboard feedback while rendering the game with
   sound.
 
-### Warning: Game not yet finished!
+### You can play this game *today* in R!!
 
-I have not finished porting this game to R.  The code is still being worked on.  
+However, there are still some graphics bugs etc to work out.
 
-Please forgive me for any glitches you find!  
-
-Or file an issue on github if you think something is definitely wrong!
+Please file an issue on github if you think something is definitely wrong!
 
 
 ## Gameplay in R
@@ -56,7 +54,7 @@ setwd('anotherworld')
 
 ## Controls
 
-After your experiment on earth goes awry, you are transported to *another world*
+After your experiment on Earth goes awry, you are transported to *another world*
 where you must survive and, hopefully, escape!
 
 * Run game with `source('game.R')`

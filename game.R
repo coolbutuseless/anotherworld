@@ -932,7 +932,8 @@ this_os <- detect_os()
 if (this_os == 'mac') {
   play_sound <- play_sound_mac_afplay
 } else if (this_os == 'unix') {
-  message("play_sound_unix() not yet implemented. Help wanted! ")
+  message("play_sound_unix() uses beepr and may be problematic! ")
+  message("Set 'game$play_sounds <- FALSE' if playback is suffering")
   play_sound <- play_sound_unix
 } else {
   message("Not a mac or unix system?  I will need some feedback to help figure out your system. No sound driver available. ")

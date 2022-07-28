@@ -45,6 +45,7 @@ remotes::install_github('coolbutuseless/nara')
 
 # Install packages
 install.packages('audio')
+install.packages('beepr')
 
 # Grab a copy of the code (this is not distributed as a package)
 system("git clone https://github.com/coolbutuseless/anotherworld")

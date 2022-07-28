@@ -93,7 +93,23 @@ play_sound_mac_audio <- function(hex, freq, volume, channel) {
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 # Help wanted.  What's a good non-blocking audio player on the command line?
+# Need support for 'freq' and 'volume' parameters if possible.
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-play_sound_unix    <- function(hex, freq, volume, channel) {}
+play_sound_unix    <- function(hex, freq, volume, channel) {
+  
+  if (volume == 0) {
+    return()
+  }
+  
+  if (!hex %in% sounds) {
+    message("This is not a sound: ", hex)
+    return()
+  }
+  
+  soundfile <- sprintf("02-game-data/full/sound/%s.wav", hex)
+  
+  beepr:::play_file(soundfile)
+}
+
 play_sound_windows <- function(hex, freq, volume, channel) {}
 play_sound_null    <- function(hex, freq, volume, channel) {}

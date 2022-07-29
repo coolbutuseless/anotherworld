@@ -31,7 +31,7 @@ A live capture of playing the game in R
 1. Install the dependencies
     * [`{nara}`](https://github.com/coolbutuseless/nara)
     * [`{eventloop}`](https://github.com/coolbutuseless/eventloop)
-2. Retrieve the anotherworld game code from [github](https://github.com/coolbutuseless/anotherworld)
+2. Retrieve the anotherworld game code from [github](https://github.com/coolbutless/anotherworld)
     * Note that this is *not* a package, but just a collection of R scripts and
       code.  This should make it easier to hack on, extend and adapt.
 

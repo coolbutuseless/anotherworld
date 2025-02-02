@@ -12,7 +12,7 @@ source("03-Rcode/cindex-and-bitwise-ops.R")
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 # Unpack a bitmap to a more usable integer matrix.
 #
-# Each integer is in the range [0-15] and represents a colour
+# Each integer is in the range [0-15] and represents a color
 # chosen from a palette.
 #
 # Current issue (Mikefc Feb 2022) I don't know which pallette goes with

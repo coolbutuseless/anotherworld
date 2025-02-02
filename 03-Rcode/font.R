@@ -70,14 +70,16 @@ text_to_points <- function(text) {
 
 
 if (FALSE) {
+  
+  load("./02-game-data/char_points.rda")
   text <- 'mad as\nHELL'
 
   pts <- text_to_points(text)
 
   library(nara)
-  nr <- nr_new(300, 200, fill = 'lightblue')
+  nr <- nara::nr_new(300, 200, fill = 'lightblue')
 
-  nr_point(nr, pts$x, 200 - pts$y, colour = 'black')
+  nara::nr_point(nr, pts$x, pts$y, color = 'black')
   grid::grid.raster(nr, interpolate = FALSE)
 }
 

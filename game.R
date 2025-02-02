@@ -273,33 +273,33 @@ draw_polygon <- function(game, color, VX, VY) {
     frame_num <- game$frame_count
     palette   <- game$palette
 
-    # According to AnotherWorld.js colours above 15 are meant to map to 
+    # According to AnotherWorld.js colors above 15 are meant to map to 
     # a palette_bmp. I.e.
     # if ( color < 16 ) {
     #   rgba[ i ] = palette32[ palette_type * 16 + color ];
     # } else {
     #   rgba[ i ] = palette_bmp[ color - 16 ];
     # }
-    # For now I'm just going to use colour=0
+    # For now I'm just going to use color=0
     
     if (color < 0 || color > 16) {
       # cat("@@",color, sep="")  #TODO fix
-      game$device$polygon_debug(x = as.integer(VX), y = as.integer(VY), colour = 0L, idx = idx, frame_num = frame_num, palette = palette)
+      game$device$polygon_debug(x = as.integer(VX), y = as.integer(VY), color = 0L, idx = idx, frame_num = frame_num, palette = palette)
     } else if (color == 16) {
-      game$device$polygon_debug(x = as.integer(VX), y = as.integer(VY), colour = 8L, op = 1L, idx = idx, frame_num = frame_num, palette = palette) # OR operation
+      game$device$polygon_debug(x = as.integer(VX), y = as.integer(VY), color = 8L, op = 1L, idx = idx, frame_num = frame_num, palette = palette) # OR operation
     } else {
-      game$device$polygon_debug(x = as.integer(VX), y = as.integer(VY), colour = color, idx = idx, frame_num = frame_num, palette = palette) # basic DRAW op
+      game$device$polygon_debug(x = as.integer(VX), y = as.integer(VY), color = color, idx = idx, frame_num = frame_num, palette = palette) # basic DRAW op
     }
 
   } else {
 
     if (color < 0 || color > 16) {
-      # cat("@@",color, sep="")  #TODO fix. What does colour > 16 mean?
-      game$device$polygon(x = as.integer(VX), y = as.integer(VY), colour = 0L)
+      # cat("@@",color, sep="")  #TODO fix. What does color > 16 mean?
+      game$device$polygon(x = as.integer(VX), y = as.integer(VY), color = 0L)
     } else if (color == 16) {
-      game$device$polygon(x = as.integer(VX), y = as.integer(VY), colour = 8L, op = 1L) # OR operation
+      game$device$polygon(x = as.integer(VX), y = as.integer(VY), color = 8L, op = 1L) # OR operation
     } else {
-      game$device$polygon(x = as.integer(VX), y = as.integer(VY), colour = color) # basic DRAW op
+      game$device$polygon(x = as.integer(VX), y = as.integer(VY), color = color) # basic DRAW op
     }
 
   }

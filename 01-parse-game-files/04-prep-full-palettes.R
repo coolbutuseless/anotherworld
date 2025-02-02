@@ -13,20 +13,20 @@ source("03-Rcode/cindex-and-bitwise-ops.R")
 # Find asset IDs for all palette collections
 #
 # Each 'palette collection' contains 32 palettes
-# Each 'palette' contains 16 colours
+# Each 'palette' contains 16 colors
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 palette_collection_ids <- keep(asset_idx, ~.x$type_string == 'palette') %>% map_int('id')
 
 
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-#' Extract a single 16-colour palette from a palette collection
+#' Extract a single 16-color palette from a palette collection
 #' 
-#' @return R character vector with 16 colours
+#' @return R character vector with 16 colors
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 create_pal <- function(palette_collection, pal_idx) {
   offset    <- pal_idx * 32
-  pal       <- character(16)  # output palette is 16 colours
+  pal       <- character(16)  # output palette is 16 colors
 
   for ( i in seq(0, 15) ) {
     color = ( palette_collection[ offset + i * 2 + 1] %<<% 8 ) %|% palette_collection[ offset + i * 2 + 2 ];
@@ -58,24 +58,24 @@ palette_collections <- list()
 #   * add palette_index number as title
 #   * add x/y indices for easier lookup when debugging
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-my_show_col <- function (colours, labels = TRUE, borders = NULL, cex_label = 1, 
+my_show_col <- function (colors, labels = TRUE, borders = NULL, cex_label = 1, 
                          ncol = NULL) {
-  n <- length(colours)
-  ncol <- ncol %||% ceiling(sqrt(length(colours)))
+  n <- length(colors)
+  ncol <- ncol %||% ceiling(sqrt(length(colors)))
   nrow <- ceiling(n/ncol)
-  colours <- c(colours, rep(NA, nrow * ncol - length(colours)))
-  colours <- matrix(colours, ncol = ncol, byrow = TRUE)
+  colors <- c(colors, rep(NA, nrow * ncol - length(colors)))
+  colors <- matrix(colors, ncol = ncol, byrow = TRUE)
   old <- par(pty = "s", mar = c(0, 0, 0, 0))
   on.exit(par(old))
-  size <- max(dim(colours))
+  size <- max(dim(colors))
   plot(c(0, size/2), c(0, -size), type = "n", xlab = "", ylab = "", 
        axes = FALSE)
-  rect(col(colours) - 1, -row(colours) + 1, col(colours), -row(colours), 
-       col = colours, border = borders)
+  rect(col(colors) - 1, -row(colors) + 1, col(colors), -row(colors), 
+       col = colors, border = borders)
   if (labels) {
-    hcl <- farver::decode_colour(colours, "rgb", "hcl")
+    hcl <- farver::decode_color(colors, "rgb", "hcl")
     label_col <- ifelse(hcl[, "l"] > 50, "black", "white")
-    text(col(colours) - 0.5, -row(colours) + 0.5, colours, 
+    text(col(colors) - 0.5, -row(colors) + 0.5, colors, 
          cex = cex_label, col = label_col)
   }
 }

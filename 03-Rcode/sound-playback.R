@@ -22,7 +22,7 @@ frequenceTable <- c(
 # Find asset IDs for all palette collections
 #
 # Each 'palette collection' contains 32 palettes
-# Each 'palette' contains 16 colours
+# Each 'palette' contains 16 colors
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 sounds <- keep(asset_idx, ~.x$type_string == 'sound') %>% 
   map_chr('hex')

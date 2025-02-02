@@ -4,11 +4,11 @@
 #'
 #' AnotherWorld uses 4 canvasses each with an indexed palette.
 #' 
-#' When the game draws something, it gives only the index of the colour it
+#' When the game draws something, it gives only the index of the color it
 #' wants to draw in.  
 #' 
 #' When rendering these nativeRaster buffers to screen, the game provides a 
-#' palette, and the indexes in the drawing canvas are mapped to colours at 
+#' palette, and the indexes in the drawing canvas are mapped to colors at 
 #' each pixel.
 #'
 #' @import R6
@@ -35,7 +35,7 @@ MultiCanvasIndexedPalette <- R6::R6Class(
     #' Initialise this object
     #'
     #' @param width,height dimensions in pixels
-    #' @param fill index of colour for initial background
+    #' @param fill index of color for initial background
     #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     initialize = function(width, height, fill = 0L) {
 
@@ -69,12 +69,12 @@ MultiCanvasIndexedPalette <- R6::R6Class(
     #' Save a canvas to PNG
     #' @param idx index of canvas
     #' @param filename output filename
-    #' @param palette a vector of colours  #TODO sanity check this length
+    #' @param palette a vector of colors  #TODO sanity check this length
     #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     save = function(idx, filename, palette) {
       stopifnot(idx >= 1, idx <= 4)
 
-      nr <- self$indexed_to_colour(idx, palette)
+      nr <- self$indexed_to_color(idx, palette)
       png::writePNG(nr, filename)
 
       invisible(self)
@@ -92,13 +92,13 @@ MultiCanvasIndexedPalette <- R6::R6Class(
     #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     #' Clear the specified canvas to the given index
     #' @param idx index of canvas
-    #' @param bg colour index for background
+    #' @param bg color index for background
     #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     clear = function(idx, bg = 0L) {
       stopifnot(idx >= 1, idx <= 4)
 
       if (is.null(bg) || is.na(bg) || bg < 0 || bg > 15) {
-        stop("Indexed Palette bg bad colour idx: ", bg)
+        stop("Indexed Palette bg bad color idx: ", bg)
       }
 
       self$screen[[idx]] <- nara::nr_fill(self$screen[[idx]], bg)
@@ -131,14 +131,14 @@ MultiCanvasIndexedPalette <- R6::R6Class(
     #'
     #' @param text string
     #' @param x,y location
-    #' @param colour index of colour to use must be in range [0, 15]
-    #' @param op operation type. 0 = INDEXED DRAW, 1 = OR with current colour
+    #' @param color index of color to use must be in range [0, 15]
+    #' @param op operation type. 0 = INDEXED DRAW, 1 = OR with current color
     #'        this is used for some drawing effects
     #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-    text = function(text, x, y, colour, op = 0L) {
+    text = function(text, x, y, color, op = 0L) {
 
-      if (is.null(colour) || is.na(colour) || colour < 0 || colour > 15) {
-        stop("Indexed Palette text bad colour idx: ", colour)
+      if (is.null(color) || is.na(color) || color < 0 || color > 15) {
+        stop("Indexed Palette text bad color idx: ", color)
       }
 
       pts <- text_to_points(text)
@@ -150,8 +150,8 @@ MultiCanvasIndexedPalette <- R6::R6Class(
       pts$y <- pts$y + y
 
       nr <- self$screen[[self$idx]]
-      nara::nr_point(nr, x = pts$x, y = self$height - pts$y + 1, colour = colour, op = op)
-      # nara::nr_points(nr, x = pts$x, y = pts$y, colour = colour, op = op)
+      nara::nr_point(nr, x = pts$x, y = self$height - pts$y + 1, color = color, op = op)
+      # nara::nr_points(nr, x = pts$x, y = pts$y, color = color, op = op)
 
       invisible(self);
     },
@@ -160,19 +160,19 @@ MultiCanvasIndexedPalette <- R6::R6Class(
     #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     #' Draw a polygon
     #' @param x,y vectors of coordinates
-    #' @param colour index of colour to use must be in range [0, 15]
-    #' @param op operation type. 0 = DRAW, 1 = OR with current colour
+    #' @param color index of color to use must be in range [0, 15]
+    #' @param op operation type. 0 = DRAW, 1 = OR with current color
     #'        this is used for some drawing effects
     #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-    polygon = function(x, y, colour, op = 0L) {
+    polygon = function(x, y, color, op = 0L) {
 
-      if (is.null(colour) || is.na(colour) || colour < 0 || colour > 15) {
-        stop("Indexed Palette polygon bad colour idx: ", colour)
+      if (is.null(color) || is.na(color) || color < 0 || color > 15) {
+        stop("Indexed Palette polygon bad color idx: ", color)
       }
 
       nr <- self$screen[[self$idx]]
-      nara::nr_polygon(nr, x = x, y = self$height - y + 1, fill = colour, colour = colour, op = op)
-      # nara::nr_polygon(nr, colour, x, y, op)
+      nara::nr_polygon(nr, x = x, y = self$height - y + 1, fill = color, color = color, op = op)
+      # nara::nr_polygon(nr, color, x, y, op)
 
       invisible(self)
     },
@@ -180,20 +180,20 @@ MultiCanvasIndexedPalette <- R6::R6Class(
     #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     #' Draw a polygon
     #' @param x,y vectors of coordinates
-    #' @param colour index of colour to use must be in range [0, 15]
-    #' @param op operation type. 0 = DRAW, 1 = OR with current colour
+    #' @param color index of color to use must be in range [0, 15]
+    #' @param op operation type. 0 = DRAW, 1 = OR with current color
     #'        this is used for some drawing effects
     #' @param idx,frame_num,palette see 'save' method
     #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-    polygon_debug = function(x, y, colour, op = 0L, idx, frame_num, palette) {
+    polygon_debug = function(x, y, color, op = 0L, idx, frame_num, palette) {
 
-      if (is.null(colour) || is.na(colour) || colour < 0 || colour > 15) {
-        stop("Indexed Palette polygon bad colour idx: ", colour)
+      if (is.null(color) || is.na(color) || color < 0 || color > 15) {
+        stop("Indexed Palette polygon bad color idx: ", color)
       }
 
       nr <- self$screen[[self$idx]]
-      nara::nr_polygon(nr, x = x, y = self$height - y + 1, colour = colour, op = op)
-      # nara::nr_polygon(nr, colour, x, y, op)
+      nara::nr_polygon(nr, x = x, y = self$height - y + 1, color = color, op = op)
+      # nara::nr_polygon(nr, color, x, y, op)
 
       for (idx in 1:4) {
         filename <- sprintf("working/polygon-debug/%i-%04i-%04i.png", idx, frame_num, self$debug_count)
@@ -207,21 +207,21 @@ MultiCanvasIndexedPalette <- R6::R6Class(
 
 
     #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-    #' Convert an indexed canvas into a native raster with colour
+    #' Convert an indexed canvas into a native raster with color
     #'
     #' @param idx index of canvas
-    #' @param palette vector of 16 colours
+    #' @param palette vector of 16 colors
     #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-    indexed_to_colour = function(idx, palette) {
+    indexed_to_color = function(idx, palette) {
       stopifnot(length(palette) == 16)
 
       # print(deparse(palette))
-      integer_palette <- nara::colour_to_integer(palette)
+      integer_palette <- nara::color_to_integer(palette)
 
-      colour_idx <- self$screen[[idx]]
-      rgba_ints <- integer_palette[colour_idx + 1L]
+      color_idx <- self$screen[[idx]]
+      rgba_ints <- integer_palette[color_idx + 1L]
 
-      final_nr <- matrix(rgba_ints, nrow=nrow(colour_idx), ncol=ncol(colour_idx))
+      final_nr <- matrix(rgba_ints, nrow=nrow(color_idx), ncol=ncol(color_idx))
       class(final_nr) <- 'nativeRaster'
       attr(final_nr, 'channels') <- 4L
 
@@ -232,12 +232,12 @@ MultiCanvasIndexedPalette <- R6::R6Class(
     #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     #' Show the canvas on the current device
     #' @param idx index of palette
-    #' @param palette palette of 16 colours
+    #' @param palette palette of 16 colors
     #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     show = function(idx, palette = rev(grey(seq.int(0, 1, length.out = 16)))) {
       stopifnot(length(palette) == 16)
 
-      final_nr <- self$indexed_to_colour(idx, palette)
+      final_nr <- self$indexed_to_color(idx, palette)
 
       grid::grid.raster(final_nr, interpolate = FALSE)
       invisible(self)

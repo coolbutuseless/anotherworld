@@ -75,7 +75,7 @@ MultiCanvasIndexedPalette <- R6::R6Class(
       stopifnot(idx >= 1, idx <= 4)
 
       nr <- self$indexed_to_color(idx, palette)
-      png::writePNG(nr, filename)
+      fastpng::write_png(nr, filename, use_filter = FALSE, compression_level = 0)
 
       invisible(self)
     },
@@ -230,9 +230,11 @@ MultiCanvasIndexedPalette <- R6::R6Class(
       stopifnot(length(palette) == 16)
 
       # print(deparse(palette))
+      print(palette)
       integer_palette <- colorfast::col_to_int(palette)
 
       color_idx <- self$screen[[idx]]
+      print(table(color_idx))
       rgba_ints <- integer_palette[color_idx + 1L]
 
       final_nr <- matrix(rgba_ints, nrow=nrow(color_idx), ncol=ncol(color_idx))

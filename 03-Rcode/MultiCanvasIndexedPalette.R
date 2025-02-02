@@ -101,7 +101,7 @@ MultiCanvasIndexedPalette <- R6::R6Class(
         stop("Indexed Palette bg bad color idx: ", bg)
       }
 
-      self$screen[[idx]] <- nara::nr_fill(self$screen[[idx]], bg)
+      nara::nr_fill(self$screen[[idx]], bg)
       invisible(self)
     },
 
@@ -149,9 +149,13 @@ MultiCanvasIndexedPalette <- R6::R6Class(
       pts$x <- pts$x + x
       pts$y <- pts$y + y
 
-      nr <- self$screen[[self$idx]]
-      nara::nr_point(nr, x = pts$x, y = self$height - pts$y + 1, color = color, op = op)
-      # nara::nr_points(nr, x = pts$x, y = pts$y, color = color, op = op)
+      if (op == 0L) {
+        mode <- nara::draw_mode$ignore_alpha
+      } else {
+        mode <- nara::draw_mode$bitwise_or
+      }
+      
+      nara::nr_point(self$screen[[self$idx]], x = pts$x, y = self$height - pts$y + 1, color = color, mode = mode)
 
       invisible(self);
     },
@@ -169,10 +173,14 @@ MultiCanvasIndexedPalette <- R6::R6Class(
       if (is.null(color) || is.na(color) || color < 0 || color > 15) {
         stop("Indexed Palette polygon bad color idx: ", color)
       }
+      
+      if (op == 0L) {
+        mode <- nara::draw_mode$ignore_alpha
+      } else {
+        mode <- nara::draw_mode$bitwise_or
+      }
 
-      nr <- self$screen[[self$idx]]
-      nara::nr_polygon(nr, x = x, y = self$height - y + 1, fill = color, color = color, op = op)
-      # nara::nr_polygon(nr, color, x, y, op)
+      nara::nr_polygon(self$screen[[self$idx]], x = x, y = self$height - y + 1, fill = color, color = color, mode = mode)
 
       invisible(self)
     },
@@ -190,10 +198,16 @@ MultiCanvasIndexedPalette <- R6::R6Class(
       if (is.null(color) || is.na(color) || color < 0 || color > 15) {
         stop("Indexed Palette polygon bad color idx: ", color)
       }
-
+      
+      
+      if (op == 0L) {
+        mode <- nara::draw_mode$ignore_alpha
+      } else {
+        mode <- nara::draw_mode$bitwise_or
+      }
+      
       nr <- self$screen[[self$idx]]
-      nara::nr_polygon(nr, x = x, y = self$height - y + 1, color = color, op = op)
-      # nara::nr_polygon(nr, color, x, y, op)
+      nara::nr_polygon(nr, x = x, y = self$height - y + 1, color = color, mode = mode)
 
       for (idx in 1:4) {
         filename <- sprintf("working/polygon-debug/%i-%04i-%04i.png", idx, frame_num, self$debug_count)
@@ -216,7 +230,7 @@ MultiCanvasIndexedPalette <- R6::R6Class(
       stopifnot(length(palette) == 16)
 
       # print(deparse(palette))
-      integer_palette <- nara::color_to_integer(palette)
+      integer_palette <- colorfast::col_to_int(palette)
 
       color_idx <- self$screen[[idx]]
       rgba_ints <- integer_palette[color_idx + 1L]

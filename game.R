@@ -860,7 +860,7 @@ load_part <- function( part ) {
 game <- new.env()
 game$frame_count <- 0L
 game$target_fps  <- 20
-game$save_screenshots <- FALSE
+game$save_screenshots <- TRUE
 
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -927,7 +927,7 @@ game$tasks <- tasks_
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 # Setup Sound playback
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-game$play_sounds <- TRUE
+game$play_sounds <- FALSE
 this_os <- detect_os()
 if (this_os == 'mac') {
   play_sound <- play_sound_mac_afplay
@@ -1081,7 +1081,7 @@ display_scale <- 3
 # 16007  =  Final        
 # 16008  =  Password     Not valid for this R version
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-PART <- ifelse(exists('PART'), PART, 16001)
+PART <- 16001
 init_game <- function(...) {
   load_part(PART)  #  <<<----------------------------------- Change this!
 }
@@ -1090,6 +1090,7 @@ init_game <- function(...) {
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 # RUn the eventloop to play the game
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+if (TRUE) {
 eventloop::run_loop(
   user_func  = game_tick,
   init_func  = init_game,
@@ -1110,13 +1111,13 @@ eventloop::run_loop(
 # with a a pause.  this won't work on other parts of the game because it
 # will not process user input.
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-if (FALSE) {
+} else {
   x11(width = SCREEN_W * display_scale/72, height = SCREEN_H * display_scale/72, antialias = 'none', type = 'dbcairo')
   dev.control(displaylist = 'inhibit')
   
   load_part(16001)
   
-  for (frame in seq(3000)) {
+  for (frame in seq(100)) {
     dev.hold()
     game_tick(event = NULL, frame_num = frame)
     dev.flush()

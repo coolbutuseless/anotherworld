@@ -75,7 +75,7 @@ MultiCanvasIndexedPalette <- R6::R6Class(
       stopifnot(idx >= 1, idx <= 4)
 
       nr <- self$indexed_to_colour(idx, palette)
-      png::writePNG(nr, filename)
+      fastpng::write_png(nr, filename, use_filter = FALSE, compression_level = 3)
 
       invisible(self)
     },
@@ -148,10 +148,10 @@ MultiCanvasIndexedPalette <- R6::R6Class(
 
       pts$x <- pts$x + x
       pts$y <- pts$y + y
-
+      
+      mode <- ifelse(op == 0L, nara::draw_mode$ignore_alpha, nara::draw_mode$bitwise_or)
       nr <- self$screen[[self$idx]]
-      nara::nr_point(nr, x = pts$x, y = self$height - pts$y + 1, colour = colour, op = op)
-      # nara::nr_points(nr, x = pts$x, y = pts$y, colour = colour, op = op)
+      nara::nr_point(nr, x = pts$x, y = pts$y, color = colour, mode = mode)
 
       invisible(self);
     },
@@ -170,9 +170,12 @@ MultiCanvasIndexedPalette <- R6::R6Class(
         stop("Indexed Palette polygon bad colour idx: ", colour)
       }
 
+      mode <- ifelse(op == 0L, nara::draw_mode$ignore_alpha, nara::draw_mode$bitwise_or)
+      # colour = sample(rainbow(100), 1)
+      # cat(colour, "")
+      
       nr <- self$screen[[self$idx]]
-      nara::nr_polygon(nr, x = x, y = self$height - y + 1, fill = colour, colour = colour, op = op)
-      # nara::nr_polygon(nr, colour, x, y, op)
+      nara::nr_polygon(nr, x = x, y = y, fill = colour, color = colour, mode = mode)
 
       invisible(self)
     },
@@ -190,9 +193,10 @@ MultiCanvasIndexedPalette <- R6::R6Class(
       if (is.null(colour) || is.na(colour) || colour < 0 || colour > 15) {
         stop("Indexed Palette polygon bad colour idx: ", colour)
       }
-
+      
+      mode <- ifelse(op == 0L, nara::draw_mode$ignore_alpha, nara::draw_mode$bitwise_or)
       nr <- self$screen[[self$idx]]
-      nara::nr_polygon(nr, x = x, y = self$height - y + 1, colour = colour, op = op)
+      nara::nr_polygon(nr, x = x, y = y, color = colour, mode = mode)
       # nara::nr_polygon(nr, colour, x, y, op)
 
       for (idx in 1:4) {
@@ -213,14 +217,16 @@ MultiCanvasIndexedPalette <- R6::R6Class(
     #' @param palette vector of 16 colours
     #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     indexed_to_colour = function(idx, palette) {
+      # return(self$screen[[idx]])
       stopifnot(length(palette) == 16)
-
+      
       # print(deparse(palette))
-      integer_palette <- nara::colour_to_integer(palette)
+      integer_palette <- colorfast::col_to_int(palette)
+      # integer_palette <- colorfast::col_to_int(rainbow(16))
 
       colour_idx <- self$screen[[idx]]
       rgba_ints <- integer_palette[colour_idx + 1L]
-
+      
       final_nr <- matrix(rgba_ints, nrow=nrow(colour_idx), ncol=ncol(colour_idx))
       class(final_nr) <- 'nativeRaster'
       attr(final_nr, 'channels') <- 4L
